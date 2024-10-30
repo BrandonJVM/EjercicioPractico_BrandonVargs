@@ -1,2 +1,4 @@
 # EjercicioPractico_BrandonVargs
-ejercicio practico 1
+
+##Mark Down##
+1. Aplication propities & port 78

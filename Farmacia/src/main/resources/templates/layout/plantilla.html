@@ -1,43 +1,49 @@
-    <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:th="http://www.thymeleaf.org">
-        <head th:fragment="head">
-            <title>Farmacia</title>
-            <meta charset="UTF-8"/>
-            <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-            <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
-            <script th:src="@{/js/rutinas.js}"></script>
-            <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-            <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-            <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>        
-        </head>
-        <body>
-            <header th:fragment="header">
-                <div class="container">
-                    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-                        <a th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-                            <span class="fs-4">[[#{aplicacion.titulo}]]</span>
-                        </a>
-                        <ul class="nav nav-pills">
-                            <li class="nav-item"><a th:href="@{/categoria/listado}" class="nav-link" aria-current="page">[[#{plantilla.categorias}]]</a></li>
-                            <li class="nav-item"><a th:href="@{/producto/listado}" class="nav-link">[[#{plantilla.productos}]]</a></li>
-                            <li class="nav-item"><a th:href="@{/usuario/listado}" class="nav-link">[[#{plantilla.usuarios}]]</a></li>
-                            <li class="nav-item"><a th:href="@{/(lang=es)}" class="nav-link">ES</a></li>
-                            <li class="nav-item"><a th:href="@{/(lang=en)}" class="nav-link">EN</a></li>
-                        </ul>
-                    </header>
-                </div>
-            </header>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head">
+        <title>Farmacia</title>
+        <meta charset="UTF-8"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <script th:src="@{/js/rutinas.js}"></script>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>        
+    </head>
+    <body>
+        <header th:fragment="header">
+            <div class="container">
+                <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                    <a th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                        <span class="fs-4">[[#{aplicacion.titulo}]]</span>
+                    </a>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a th:href="@{/categoria/listado}" class="nav-link" aria-current="page">[[#{plantilla.categorias}]]</a></li>
+                        <li class="nav-item"><a th:href="@{/producto/listado}" class="nav-link">[[#{plantilla.productos}]]</a></li>
+                        <li class="nav-item"><a th:href="@{/usuario/listado}" class="nav-link">[[#{plantilla.usuarios}]]</a></li>
+                        <li class="nav-item"><a th:href="@{/(lang=es)}" class="nav-link">ES</a></li>
+                        <li class="nav-item"><a th:href="@{/(lang=en)}" class="nav-link">EN</a></li>
+                    </ul>
+                </header>
+            </div>
+        </header>
 
-            <footer th:fragment="footer" class="bg-info text-white mt-5 p-2">
-                <div class="container">
-                    <div class="col">
-                        <p class="lead text-center">
-                            &COPY [[#{plantilla.derechos}]]
-                        </p>
-                    </div>
+        <main class="container my-4">
+            <h2>Contenido del Iframe</h2>
+            <iframe src="https://www.youtube.com/watch?v=w6MjRlBAFJg" width="100%" height="500px" style="border: none;"></iframe>
+            <!-- Cambia el src a la URL que desees cargar en el iframe -->
+        </main>
+
+        <footer th:fragment="footer" class="bg-info text-white mt-5 p-2">
+            <div class="container">
+                <div class="col">
+                    <p class="lead text-center">
+                        &COPY [[#{plantilla.derechos}]]
+                    </p>
                 </div>
-            </footer>
-        </body>
-    </html>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,13 +1,13 @@
 
-package com.Farmacia.service;
+package com.Farmacia.demo.service;
 
-import com.Farmacia.domain.Medicamentos;
+import com.Farmacia.demo.domain.Medicamentos;
 import java.util.List;
 
 public interface MedicamentosService {
 
 
-    public List<Medicamentos> getMedicamentoss(boolean activo);
+    public List<Medicamentos> getMedicamentoss();
 
     // Se obtiene un Categoria, a partir del id de un categoria
     public Medicamentos getMedicamentos(Medicamentos medicamentos);

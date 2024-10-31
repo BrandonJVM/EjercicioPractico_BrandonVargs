@@ -1,7 +1,7 @@
-package com.Farmacia.controller;
+package com.Farmacia.demo.controller;
 
-import com.Farmacia.service.impl.FirebaseStorageServiceImpl;
-import com.Farmacia.domain.Medicamentos; // Cambiado a Medicamentos
+import com.Farmacia.demo.service.impl.FirebaseStorageServiceImpl;
+import com.Farmacia.demo.domain.Medicamentos; // Cambiado a Medicamentos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.Farmacia.service.MedicamentosService; // Cambiado a MedicamentosService
+import com.Farmacia.demo.service.MedicamentosService; // Cambiado a MedicamentosService
 
 @Controller
 @RequestMapping("/medicamentos") // Cambiado a /medicamentos
@@ -21,7 +21,7 @@ public class MedicamentosController {
     
     @GetMapping("/listado")
     private String listado(Model model) {
-        var medicamentos = medicamentosService.getMedicamentoss(true); // Cambiado a getMedicamentos
+        var medicamentos = medicamentosService.getMedicamentoss(); // Cambiado a getMedicamentos
         model.addAttribute("medicamentos", medicamentos); // Cambiado a medicamentos
         model.addAttribute("totalMedicamentos", medicamentos.size()); // Cambiado a totalMedicamentos
         return "/medicamentos/listado"; // Cambiado a /medicamentos/listado

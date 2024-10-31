@@ -1,5 +1,5 @@
 
-package com.Farmacia.domain;
+package com.Farmacia.demo.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -18,6 +18,7 @@ public class Categoria implements Serializable {
     private Long id;
     private String nombre;
     private String descripcion;
+
 
     public Categoria(String nombre, String descripcion) {
         this.nombre = nombre;

@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.Farmacia.service.impl;
+package com.Farmacia.demo.service.impl;
 
 
-import com.Farmacia.domain.Categoria;
+import com.Farmacia.demo.domain.Categoria;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.Farmacia.service.CategoriaService;
-import com.farmacia.dao.CategoriaDao;
+import com.Farmacia.demo.service.CategoriaService;
+import com.Farmacia.demo.dao.CategoriaDao;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
@@ -24,7 +24,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Categoria> getCategorias(boolean activos) {
+    public List<Categoria> getCategorias() {
         var lista = categoriaDao.findAll();
         /*if (activos) {
             lista.removeIf(e -> !e.isActivo());

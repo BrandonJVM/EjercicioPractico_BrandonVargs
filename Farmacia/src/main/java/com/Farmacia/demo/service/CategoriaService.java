@@ -1,10 +1,10 @@
-package com.Farmacia.service;
-import com.Farmacia.domain.Categoria;
+package com.Farmacia.demo.service;
+import com.Farmacia.demo.domain.Categoria;
 import java.util.List;
 
 public interface CategoriaService {
 
-    public List<Categoria> getCategorias(boolean activo);
+    public List<Categoria> getCategorias();
 
     // Se obtiene un Categoria, a partir del id de un categoria
     public Categoria getCategoria(Categoria categoria);

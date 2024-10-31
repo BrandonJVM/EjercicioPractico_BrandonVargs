@@ -1,5 +1,5 @@
 
-package com.Farmacia.service.impl;
+package com.Farmacia.demo.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.Farmacia.service.MedicamentosService;
-import com.Farmacia.dao.MedicamentosDao;
-import com.Farmacia.domain.Medicamentos;
+import com.Farmacia.demo.service.MedicamentosService;
+import com.Farmacia.demo.dao.MedicamentosDao;
+import com.Farmacia.demo.domain.Medicamentos;
 
 @Service
 public class MedicamentosServiceImpl implements MedicamentosService {
@@ -20,7 +20,7 @@ public class MedicamentosServiceImpl implements MedicamentosService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Medicamentos> getMedicamentoss(boolean activo) {
+    public List<Medicamentos> getMedicamentoss() {
         var lista = medicamentoDao.findAll();
         /*if (activos) {
             lista.removeIf(e -> !e.isActivo());

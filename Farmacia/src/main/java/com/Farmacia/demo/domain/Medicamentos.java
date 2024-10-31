@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.Farmacia.domain;
+package com.Farmacia.demo.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import javax.print.attribute.standard.Media;
 import lombok.Data;
 
 @Data
@@ -31,13 +32,15 @@ public class Medicamentos implements Serializable {
         this.precio = precio;
         this.stock = stock;
     }
+    
+    public Long getId(){
+        return this.id;
+        
+    }
 
     
     public Medicamentos() {
     }
     
-    
-
-
-
+  
 }

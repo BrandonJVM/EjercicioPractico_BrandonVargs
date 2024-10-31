@@ -1,9 +1,9 @@
-package com.Farmacia.controller;
+package com.Farmacia.demo.controller;
 
 
-import com.Farmacia.service.impl.FirebaseStorageServiceImpl;
-import com.Farmacia.domain.Categoria;
-import com.Farmacia.service.impl.FirebaseStorageServiceImpl;
+import com.Farmacia.demo.service.impl.FirebaseStorageServiceImpl;
+import com.Farmacia.demo.domain.Categoria;
+import com.Farmacia.demo.service.impl.FirebaseStorageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.Farmacia.service.CategoriaService;
+import com.Farmacia.demo.service.CategoriaService;
 
 @Controller
 @RequestMapping("/categoria")
@@ -23,11 +23,13 @@ public class CategoriaController {
     
     @GetMapping("/listado")
     private String listado(Model model) {
-        var categorias = categoriaService.getCategorias(false);
+        var categorias = categoriaService.getCategorias();
         model.addAttribute("categorias", categorias);
         model.addAttribute("totalCategorias",categorias.size());
         return "/categoria/listado";
     }
+    
+  
     
      @GetMapping("/nuevo")
     public String categoriaNuevo(Categoria categoria) {

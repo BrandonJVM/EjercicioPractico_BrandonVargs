@@ -1,44 +1,56 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.Farmacia.service.impl;
-
-import com.Farmacia.domain.Medicamentos; // Cambiado a Medicamentos
-import java.util.List;
+import com.Farmacia.domain
+import com.Farmacia.domain.Medicamentos;
+import com.Farmacia.service.MedicamentosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.Farmacia.service.MedicamentosService; // Cambiado a MedicamentosService
-import com.Farmacia.dao.MedicamentosDao; // Cambiado a MedicamentosDao
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class MedicamentosServiceImpl implements CategoriaService {
+public class MedicamentosServiceImpl  implements MedicamentoService {
+
+    private final MedicamentoDao medicamentoDao;
 
     @Autowired
-    private MedicamentosDao medicamentosDao; // Cambiado a MedicamentosDao
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Medicamentos> getMedicamentos(boolean activos) { // Cambiado a getMedicamentos
-        var lista = medicamentosDao.findAll();
-        /*if (activos) {
-            lista.removeIf(e -> !e.isActivo()); // Si tienes un atributo activo en Medicamentos, descomenta esto.
-        }*/
-        return lista;
+    public MedicamentoServiceImpl(MedicamentoDao medicamentoDao) {
+        this.medicamentoDao = medicamentoDao;
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Medicamentos getMedicamento(Medicamentos medicamento) { // Cambiado a getMedicamento
-        return medicamentosDao.findById(medicamento.getId()).orElse(null); // Cambiado a Medicamentos
+    public Medicamento save(Medicamento medicamento) {
+        return medicamentoDao.save(medicamento);
     }
 
     @Override
-    @Transactional
-    public void save(Medicamentos medicamento) { // Cambiado a Medicamentos
-        medicamentosDao.save(medicamento);
+    public Optional<Medicamento> findById(Long id) {
+        return medicamentoDao.findById(id);
     }
 
     @Override
-    @Transactional
-    public void delete(Medicamentos medicamento) { // Cambiado a Medicamentos
-        medicamentosDao.delete(medicamento);
+    public List<Medicamento> findAll() {
+        return medicamentoDao.findAll();
     }
+
+    @Override
+    public Medicamento update(Long id, Medicamento medicamento) {
+        if (medicamentoDao.existsById(id)) {
+            medicamento.setId(id); // Set the ID of the existing entity
+            return medicamentoDao.save(medicamento);
+        }
+        return null; // Or throw an exception if not found
+    }
+
+    @Override
+    public void delete(Long id) {
+        if (medicamentoDao.existsById(id)) {
+            medicamentoDao.deleteById(id);
+        }
+        // Optionally throw an exception if not found
+    }
 }

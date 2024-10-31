@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <!-- 1 Sección para crear el botón de agregar... llamará a una ventana modal-->
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarMedicamento">
+                            <i class="fas fa-plus"></i> [[#{medicamentos.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2 Fragmento para agregar medicamento, es la ventana modal -->
+        <section th:fragment="agregarMedicamento">
+            <div id="agregarMedicamento" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">[[#{medicamentos.agregar}]]</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/medicamentos/guardar}" th:object="${medicamento}"
+                              method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="descripcion">[[#{medicamentos.descripcion}]]</label>
+                                    <input type="text" class="form-control" name="descripcion" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="precio">[[#{medicamentos.precio}]]</label>
+                                    <input type="number" class="form-control" name="precio" step="0.01" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="stock">[[#{medicamentos.stock}]]</label>
+                                    <input type="number" class="form-control" name="stock" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imagen">[[#{medicamentos.rutaImagen}]]</label>
+                                    <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
+                                    <img id="blah" src="#" alt="your image" height="200"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Sección principal para mostrar la información de los medicamentos -->
+        <section th:fragment="listadoMedicamentos" id="medicamentos">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{medicamentos.listado}]]</h4>
+                            </div>
+                            <div th:if="${medicamentosList != null and !medicamentosList.empty}">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>[[#{medicamentos.descripcion}]]</th>
+                                            <th>[[#{medicamentos.precio}]]</th>
+                                            <th>[[#{medicamentos.stock}]]</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="medicamento, contador : ${medicamentosList}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${medicamento.descripcion}]]</td>
+                                            <td>[[${medicamento.precio}]]</td>
+                                            <td>[[${medicamento.stock}]]</td>
+                                            <td>
+                                                <a th:href="@{/medicamentos/eliminar/}+${medicamento.id}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                                </a>
+                                                <a th:href="@{/medicamentos/modificar/}+${medicamento.id}"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${medicamentosList == null or medicamentosList.empty}">
+                                <span>[[#{lista.vacia}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h3>[[#{medicamentos.total}]]</h3>
+                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalMedicamentos}]]</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 Fragmento que se utiliza en la página modifica.html -->
+        <section th:fragment="editarMedicamento">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/medicamentos/guardar}" 
+                          th:object="${medicamento}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="id" th:field="*{id}"/>
+                        <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
+                        <section th:replace="~{medicamentos/fragmentos :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>[[#{accion.actualizar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="descripcion">[[#{medicamentos.descripcion}]]</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="descripcion" th:field="*{descripcion}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="precio">[[#{medicamentos.precio}]]</label>
+                                                    <input type="number" class="form-control" 
+                                                           name="precio" th:field="*{precio}" 
+                                                           step="0.01" required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="stock">[[#{medicamentos.stock}]]</label>
+                                                    <input type="number" class="form-control" 
+                                                           name="stock" th:field="*{stock}" 
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="imagen">[[#{medicamentos.rutaImagen}]]</label>
+                                                    <input class="form-control" type="file" name="imagenFile"
+                                                           onchange="readURL(this);" />
+                                                    <img id="blah" th:src="@{${medicamento.rutaImagen}}" alt="your image" height="200"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/medicamentos/listado}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">                                
+                        <a th:href="@{/medicamentos/eliminar/}+${medicamento.id}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                        </button

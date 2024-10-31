@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/199/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/199/xhtml">
     <head th:replace="~{layout/plantilla :: head}">
         <title>Farmacia</title>
     </head>
     <body>
-         <header th:replace="~{layout/plantilla :: header}"/>
-         
-         <footer th:replace="~{layout/plantilla :: footer}"/>
+        <header th:replace="~{layout/plantilla :: header}"/>
+        
+        <!-- Contenido Principal -->
+        <main class="container my-4">
+            <h1>Bienvenido a la Farmacia</h1>
+            <p>Aquí puedes encontrar toda la información sobre nuestros productos y servicios.</p>
+
+            <!-- Iframe para mostrar contenido externo -->
+            <iframe src="https://www.bbc.com/mundo/noticias-50687669" width="100%" height="500" frameborder="0">
+                Este navegador no soporta iframes.
+            </iframe>
+        </main>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>
-

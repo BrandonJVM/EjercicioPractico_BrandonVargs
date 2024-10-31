@@ -25,14 +25,14 @@ public class Medicamentos implements Serializable {
     private int stock;
     private int id_categoria;
 
-    public Medicamentos(String nombre, String descripcion, double precio, int stock, int id_categoria) {
+    public Medicamentos(String nombre, String descripcion, double precio, int stock) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
-        this.id_categoria = id_categoria;
     }
 
+    
     public Medicamentos() {
     }
     

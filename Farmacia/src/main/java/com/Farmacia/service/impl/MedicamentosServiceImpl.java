@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.Farmacia.service.impl;
 
-import com.Farmacia.domain.Medicamentos;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,25 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.Farmacia.service.MedicamentosService;
 import com.Farmacia.dao.MedicamentosDao;
+import com.Farmacia.domain.Medicamentos;
 
 @Service
 public class MedicamentosServiceImpl implements MedicamentosService {
 
     @Autowired
-    private final MedicamentosDao medicamentoDao;
+    private MedicamentosDao medicamentoDao;
 
     @Override
     @Transactional(readOnly = true)
-    public List<Medicamentos> getMedicamentos(boolean activos) {
+    public List<Medicamentos> getMedicamentoss(boolean activo) {
         var lista = medicamentoDao.findAll();
         /*if (activos) {
             lista.removeIf(e -> !e.isActivo());
         }*/
         return lista;
     }
+
     @Override
     @Transactional(readOnly = true)
-    public Medicamentos getCategoria(Medicamentos medicamientos) {
+    public Medicamentos getMedicamentos(Medicamentos medicamientos) {
         return medicamentoDao.findById(medicamientos.getId()).orElse(null);
     }
 

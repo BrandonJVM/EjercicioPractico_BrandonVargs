@@ -3,54 +3,48 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.Farmacia.service.impl;
-import com.Farmacia.domain
+
 import com.Farmacia.domain.Medicamentos;
-import com.Farmacia.service.MedicamentosService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.Farmacia.service.MedicamentosService;
+import com.Farmacia.dao.MedicamentosDao;
 
 @Service
-public class MedicamentosServiceImpl  implements MedicamentoService {
-
-    private final MedicamentoDao medicamentoDao;
+public class MedicamentosServiceImpl implements MedicamentosService {
 
     @Autowired
-    public MedicamentoServiceImpl(MedicamentoDao medicamentoDao) {
-        this.medicamentoDao = medicamentoDao;
+    private final MedicamentosDao medicamentoDao;
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Medicamentos> getMedicamentos(boolean activos) {
+        var lista = medicamentoDao.findAll();
+        /*if (activos) {
+            lista.removeIf(e -> !e.isActivo());
+        }*/
+        return lista;
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public Medicamentos getCategoria(Medicamentos medicamientos) {
+        return medicamentoDao.findById(medicamientos.getId()).orElse(null);
     }
 
     @Override
-    public Medicamento save(Medicamento medicamento) {
-        return medicamentoDao.save(medicamento);
+    @Transactional
+    public void save(Medicamentos medicamentos) {
+        medicamentoDao.save(medicamentos);
     }
 
     @Override
-    public Optional<Medicamento> findById(Long id) {
-        return medicamentoDao.findById(id);
+    @Transactional
+    public void delete(Medicamentos medicamentos) {
+        medicamentoDao.delete(medicamentos);
     }
-
-    @Override
-    public List<Medicamento> findAll() {
-        return medicamentoDao.findAll();
-    }
-
-    @Override
-    public Medicamento update(Long id, Medicamento medicamento) {
-        if (medicamentoDao.existsById(id)) {
-            medicamento.setId(id); // Set the ID of the existing entity
-            return medicamentoDao.save(medicamento);
-        }
-        return null; // Or throw an exception if not found
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (medicamentoDao.existsById(id)) {
-            medicamentoDao.deleteById(id);
-        }
-        // Optionally throw an exception if not found
-    }
 }
